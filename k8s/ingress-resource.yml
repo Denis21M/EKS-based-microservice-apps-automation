@@ -3,19 +3,20 @@ kind: Ingress
 metadata:
   name: voting-app-ingress
   annotations:
-    spec.ingressClassName: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx 
   rules:
     - http:
         paths:
-          - path: /vote
+          - path: /vote(/|$)(.*)  
             pathType: Prefix
             backend:
               service:
                 name: vote-service
                 port:
                   number: 80
-          - path: /result
+          - path: /result(/|$)(.*)  
             pathType: Prefix
             backend:
               service:
