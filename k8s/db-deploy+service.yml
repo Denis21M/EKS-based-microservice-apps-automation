@@ -28,18 +28,17 @@ spec:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pvc
-env:
-  - name: POSTGRES_USER
-    valueFrom:
-      secretKeyRef:
-        name: db-credentials
-        key: POSTGRES_USER
-  - name: POSTGRES_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: db-credentials
-        key: POSTGRES_PASSWORD
-
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: POSTGRES_PASSWORD
 ---
 apiVersion: v1
 kind: Service

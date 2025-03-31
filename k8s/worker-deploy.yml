@@ -12,11 +12,10 @@ spec:
       labels:
         app: worker
     spec:
-      containers:
       - name: worker-container
         image: ${{ secrets.DOCKER_USERNAME }}/myworker:${{ env.IMAGE_TAG }}
         ports:
-          - containerPort:
+          - containerPort: 
         env:
           - name: REDIS_HOST
             value: "redis-service"
