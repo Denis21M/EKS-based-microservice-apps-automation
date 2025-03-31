@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: vote-container
-        image: bacon21/myvote:${{ env.IMAGE_TAG }}
+        image: ${{ secrets.DOCKER_USERNAME }}/myvote:${{ env.IMAGE_TAG }}
         ports:
           - containerPort: 80
         env:

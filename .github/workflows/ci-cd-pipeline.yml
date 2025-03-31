@@ -30,8 +30,8 @@ jobs:
           context: ./vote
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/bacon21/myvote:${{ env.IMAGE_TAG }}
-            ${{ secrets.DOCKER_USERNAME }}/bacon21/myvote:latest
+            ${{ secrets.DOCKER_USERNAME }}/myvote:${{ env.IMAGE_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/myvote:latest
             
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -39,8 +39,8 @@ jobs:
           context: ./result
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/bacon21/result-im:${{ env.IMAGE_TAG }}
-            ${{ secrets.DOCKER_USERNAME }}/bacon21/result-im:latest
+            ${{ secrets.DOCKER_USERNAME }}/result-im:${{ env.IMAGE_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/result-im:latest
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -48,8 +48,8 @@ jobs:
           context: ./worker
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/bacon21/myworker:${{ env.IMAGE_TAG }}
-            ${{ secrets.DOCKER_USERNAME }}/bacon21/myworker:latest
+            ${{ secrets.DOCKER_USERNAME }}/myworker:${{ env.IMAGE_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/myworker:latest
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
