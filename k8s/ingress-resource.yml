@@ -9,14 +9,14 @@ spec:
   rules:
     - http:
         paths:
-          - path: /vote(/|$)(.*)  
+          - path: /vote
             pathType: Prefix
             backend:
               service:
                 name: vote-service
                 port:
                   number: 80
-          - path: /result(/|$)(.*)  
+          - path: /result
             pathType: Prefix
             backend:
               service:
