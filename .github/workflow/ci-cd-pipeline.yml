@@ -74,7 +74,7 @@ jobs:
         run: |
           kubectl apply -f k8s/
 
-      - name: Restart Deployments to Pull Latest Image # Need this because Kubernetes does not automatically pull a new image if the tag remains similar
+      - name: Restart Deployments to Pull Latest Image 
         run: |
           kubectl rollout restart deployment/result-deploy+service.yml
           kubectl rollout restart deployment/worker-deploy+service.yml
