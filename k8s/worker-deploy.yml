@@ -33,4 +33,4 @@ spec:
                 name: db-credentials
                 key: POSTGRES_PASSWORD
 
-# There is no need to expose service for worker since no app is sending request to it or need to reach it.
+# There is no need to expose service for worker since no app is sending request to it.
