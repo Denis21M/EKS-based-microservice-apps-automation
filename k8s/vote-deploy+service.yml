@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: vote-container
-        image: bacon21/myvote:latest
+        image: bacon21/vote:latest
         ports:
           - containerPort: 80
         env:
