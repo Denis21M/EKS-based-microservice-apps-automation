@@ -20,6 +20,8 @@ spec:
               value: "redis-service"
             - name: POSTGRES_HOST
               value: "postgres-service"
+            - name: POSTGRES_PORT
+              value: "5432"
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:

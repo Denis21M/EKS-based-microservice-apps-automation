@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: result-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: result
@@ -21,6 +21,8 @@ spec:
         env:
           - name: POSTGRES_HOST
             value: "postgres-service"
+          - name: POSTGRES_PORT
+            value: "5432"
           - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:
