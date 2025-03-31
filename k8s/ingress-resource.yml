@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: voting-app-ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    spec.ingressClassName: "nginx"
 spec:
   rules:
     - http:
