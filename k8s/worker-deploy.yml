@@ -12,24 +12,21 @@ spec:
       labels:
         app: worker
     spec:
-      - name: worker-container
-        image: ${{ secrets.DOCKER_USERNAME }}/myworker:${{ env.IMAGE_TAG }}
-        ports:
-          - containerPort: 
-        env:
-          - name: REDIS_HOST
-            value: "redis-service"
-          - name: POSTGRES_HOST
-            value: "postgres-service"
-          - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials
-                key: POSTGRES_USER
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: db-credentials
-                key: POSTGRES_PASSWORD
-
-# There is no need to expose service for worker since no app is sending request to it.
+      containers:
+        - name: worker-container
+          image: bacon21/myworker:latest
+          env:
+            - name: REDIS_HOST
+              value: "redis-service"
+            - name: POSTGRES_HOST
+              value: "postgres-service"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: POSTGRES_PASSWORD

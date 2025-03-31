@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: result-container
-        image: ${{ secrets.DOCKER_USERNAME }}/result-im:${{ env.IMAGE_TAG }}
+        image: bacon21/result-im:latest
         ports:
           - containerPort: 80
         env:

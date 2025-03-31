@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: vote-container
-        image: ${{ secrets.DOCKER_USERNAME }}/myvote:${{ env.IMAGE_TAG }}
+        image: bacon21/myvote:latest
         ports:
           - containerPort: 80
         env:
@@ -22,13 +23,14 @@ spec:
             value: "redis-service" 
           - name: REDIS_PORT
             value: "6379"
-  apiVersion: v1
-  kind: Service
-  metadata:
-    name: vote-service
-  spec:
-    selector:
-      app: vote
-    ports:
-      - port: 80
-        targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote-service
+spec:
+  selector:
+    app: vote
+  ports:
+    - port: 80
+      targetPort: 80
