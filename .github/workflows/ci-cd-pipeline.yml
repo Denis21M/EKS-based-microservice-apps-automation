@@ -76,6 +76,6 @@ jobs:
 
       - name: Restart Deployments to Pull Latest Image 
         run: |
-          kubectl rollout restart deployment/result-deploy+service.yml
-          kubectl rollout restart deployment/worker-deploy.yml
-          kubectl rollout restart deployment/vote-deploy+service.yml
+          kubectl rollout restart deployment/result-deployment
+          kubectl rollout restart deployment/vote-deployment
+          kubectl rollout restart deployment/worker-deployment
