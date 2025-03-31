@@ -1,5 +1,5 @@
 name: CI / CD Pipeline
-run-name: ${{ Denis21M }} is Deploying 
+run-name: ${{ github.actor }} is Deploying 
 
 on:
   push:
