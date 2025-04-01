@@ -40,7 +40,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/result-x:${{ env.IMAGE_TAG }}
-            ${{ secrets.DOCKER_USERNAME }}/result-xlatest
+            ${{ secrets.DOCKER_USERNAME }}/result-x:latest
 
       - name: Build and push Worker app
         uses: docker/build-push-action@v6
