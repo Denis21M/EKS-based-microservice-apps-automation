@@ -2,7 +2,7 @@
 
 ---
 
-# Multi-Stack Voting Application
+# Multi-Stack Voting Application deployment ro EKS cluster
 
 **Welcome to your DevOps practice project!** This repository hosts a multi-stack voting application composed of several services, each implemented in a different language and technology stack. The goal is to help you gain experience with containerization, orchestration, and running a distributed set of services—both individually and as part of a unified system.
 
