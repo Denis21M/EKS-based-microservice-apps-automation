@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -31,10 +44,9 @@ spec:
             - name: PGDATA
               value: /etc/postgresql
           volumeMounts:
-            - name: postgres-config
-              mountPath: /etc/postgresql/pg_hba.conf
-              subPath: pg_hba.conf
+            - name: postgres-pvc
+              mountPath: /etc/postgresql
       volumes:
-        - name: postgres-config
-          configMap:
-            name: postgres-config
+        - name: postgres-pvc
+          persistentVolumeClaim:
+            claimName: postgres-pvc
