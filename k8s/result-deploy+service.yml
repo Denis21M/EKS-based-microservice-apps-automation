@@ -23,6 +23,8 @@ spec:
             value: "postgres-service"
           - name: PG_PORT
             value: "5432"
+          - name: PG_DATABASE
+            value: "postgres"
           - name: PG_USER
             valueFrom:
               secretKeyRef:

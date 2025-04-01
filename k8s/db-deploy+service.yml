@@ -29,12 +29,15 @@ spec:
                 secretKeyRef:
                   name: db-credentials
                   key: PG_PASSWORD
-            - name: PGDATA
-              value: /etc/postgresql
-          volumeMounts:
-            - name: postgres-pvc
-              mountPath: /etc/postgresql
-      volumes:
-        - name: postgres-pvc
-          persistentVolumeClaim:
-            claimName: postgres-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
