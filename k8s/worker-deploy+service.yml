@@ -21,7 +21,7 @@ spec:
             - name: REDIS_PORT
               value: "6379"
             - name: DB_HOST
-              value: "db"
+              value: "postgres-service"
             - name: DB_NAME
               value: "postgres"
             - name: DB_PORT
@@ -30,9 +30,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: db-credentials
-                  key: DB_USERNAME
+                  key: POSTGRES_USERNAME
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-credentials
-                  key: DB_PASSWORD
+                  key: POSTGRES_PASSWORD
