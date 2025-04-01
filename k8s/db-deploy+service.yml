@@ -1,3 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ebs-sc # Use the storage class you prefer
+
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -8,9 +22,9 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  storageClassName: ebs-sc # Ensure this matches the PV storage class
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
