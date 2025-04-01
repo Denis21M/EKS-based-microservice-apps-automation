@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: result-container
-        image: bacon21/result:latest
+        image: bacon21/result-x:latest
         ports:
           - containerPort: 80
         env:

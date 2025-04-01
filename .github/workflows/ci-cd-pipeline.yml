@@ -30,8 +30,8 @@ jobs:
           context: ./vote
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/vote:${{ env.IMAGE_TAG }}
-            ${{ secrets.DOCKER_USERNAME }}/vote:latest
+            ${{ secrets.DOCKER_USERNAME }}/vote-x:${{ env.IMAGE_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/vote-x:latest
             
       - name: Build and push Result app
         uses: docker/build-push-action@v6
@@ -39,8 +39,8 @@ jobs:
           context: ./result
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/result:${{ env.IMAGE_TAG }}
-            ${{ secrets.DOCKER_USERNAME }}/result:latest
+            ${{ secrets.DOCKER_USERNAME }}/result-x:${{ env.IMAGE_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/result-xlatest
 
       - name: Build and push Worker app
         uses: docker/build-push-action@v6
@@ -48,8 +48,8 @@ jobs:
           context: ./worker
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/worker:${{ env.IMAGE_TAG }}
-            ${{ secrets.DOCKER_USERNAME }}/worker:latest
+            ${{ secrets.DOCKER_USERNAME }}/worker-x:${{ env.IMAGE_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/worker-x:latest
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -74,7 +74,7 @@ jobs:
             --from-literal=POSTGRES_USER=${{ secrets.POSTGRES_USER }} \
             --from-literal=POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} \
             --dry-run=client -o yaml | kubectl apply -f -
-            
+
       - name: Deploy to EKS
         run: |
           kubectl apply -f k8s/
