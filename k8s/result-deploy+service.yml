@@ -20,7 +20,7 @@ spec:
           - containerPort: 80
         env:
           - name: POSTGRES_HOST
-            value: "postgres-service"
+            value: "db"
           - name: POSTGRES_PORT
             value: "5432"
           - name: POSTGRES_DATABASE
