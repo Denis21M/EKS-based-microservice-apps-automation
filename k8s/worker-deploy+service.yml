@@ -18,6 +18,8 @@ spec:
           env:
             - name: REDIS_HOST
               value: "redis-service"
+            - name: REDIS_PORT
+              value: "6379"
             - name: POSTGRES_HOST
               value: "postgres-service"
             - name: POSTGRES_PORT
