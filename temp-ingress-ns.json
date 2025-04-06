@@ -2,15 +2,19 @@
   "apiVersion": "v1",
   "kind": "Namespace",
   "metadata": {
-    "creationTimestamp": "2025-04-06T13:34:52Z",
-    "deletionTimestamp": "2025-04-06T13:39:16Z",
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"ingress-nginx\",\"app.kubernetes.io/name\":\"ingress-nginx\"},\"name\":\"ingress-nginx\"}}\n"
+    },
+    "creationTimestamp": "2025-03-25T20:00:13Z",
+    "deletionTimestamp": "2025-04-06T13:03:50Z",
     "labels": {
-      "kubernetes.io/metadata.name": "ingress-nginx",
-      "name": "ingress-nginx"
+      "app.kubernetes.io/instance": "ingress-nginx",
+      "app.kubernetes.io/name": "ingress-nginx",
+      "kubernetes.io/metadata.name": "ingress-nginx"
     },
     "name": "ingress-nginx",
-    "resourceVersion": "3093506",
-    "uid": "f07ae479-703c-4e26-8e51-0a05bc55e6b7"
+    "resourceVersion": "3085295",
+    "uid": "7c4b82b8-8fd9-477c-92c8-0ebf4826e51c"
   },
   "spec": {
     "finalizers": []
@@ -18,35 +22,35 @@
   "status": {
     "conditions": [
       {
-        "lastTransitionTime": "2025-04-06T13:39:21Z",
+        "lastTransitionTime": "2025-04-06T13:03:55Z",
         "message": "Discovery failed for some groups, 2 failing: unable to retrieve the complete list of server APIs: metrics.eks.amazonaws.com/v1: stale GroupVersion discovery: metrics.eks.amazonaws.com/v1, metrics.k8s.io/v1beta1: stale GroupVersion discovery: metrics.k8s.io/v1beta1",
         "reason": "DiscoveryFailed",
         "status": "True",
         "type": "NamespaceDeletionDiscoveryFailure"
       },
       {
-        "lastTransitionTime": "2025-04-06T13:39:22Z",
+        "lastTransitionTime": "2025-04-06T13:03:55Z",
         "message": "All legacy kube types successfully parsed",
         "reason": "ParsedGroupVersions",
         "status": "False",
         "type": "NamespaceDeletionGroupVersionParsingFailure"
       },
       {
-        "lastTransitionTime": "2025-04-06T13:39:22Z",
+        "lastTransitionTime": "2025-04-06T13:03:55Z",
         "message": "All content successfully deleted, may be waiting on finalization",
         "reason": "ContentDeleted",
         "status": "False",
         "type": "NamespaceDeletionContentFailure"
       },
       {
-        "lastTransitionTime": "2025-04-06T13:39:31Z",
+        "lastTransitionTime": "2025-04-06T13:06:10Z",
         "message": "All content successfully removed",
         "reason": "ContentRemoved",
         "status": "False",
         "type": "NamespaceContentRemaining"
       },
       {
-        "lastTransitionTime": "2025-04-06T13:39:31Z",
+        "lastTransitionTime": "2025-04-06T13:04:23Z",
         "message": "All content-preserving finalizers finished",
         "reason": "ContentHasNoFinalizers",
         "status": "False",
