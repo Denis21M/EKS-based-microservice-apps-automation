@@ -8,5 +8,5 @@ parameters:
   type: gp3                   
   encrypted: "true"
 reclaimPolicy: Retain          
-volumeBindingMode: immediate 
+volumeBindingMode: WaitForFirstConsumer  
 allowVolumeExpansion: true   
