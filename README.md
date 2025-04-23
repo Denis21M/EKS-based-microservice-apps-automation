@@ -1,155 +1,88 @@
-<!-- © 2024 | Ironhack -->
+This project is a simplified voting application deployed on Amazon EKS (Elastic Kubernetes Service). It includes a voting interface and result viewer, integrated with a backend Redis/PostgreSQL system. Deployment is fully automated using GitHub Actions CI/CD.
 
----
+![Architecture](EKS-Based-App/image.png)
 
-# Multi-Stack Voting Application deployment ro EKS cluster
+![Architecture](EKS-Based-App/project3.jpeg)
 
-**Welcome to your DevOps practice project!** This repository hosts a multi-stack voting application composed of several services, each implemented in a different language and technology stack. The goal is to help you gain experience with containerization, orchestration, and running a distributed set of services—both individually and as part of a unified system.
+- ⚙️ Architecture Overview
+The app consists of:
 
-This application, while simple, uses multiple components commonly found in modern distributed architectures, giving you hands-on practice in connecting services, handling containers, and working with basic infrastructure automation.
+- Frontend Clients:
 
-## Application Overview
+Voter (/vote) – Cast a vote
 
-The voting application includes:
+Result Viewer (/result) – Display live results
 
-- **Vote (Python)**: A Python Flask-based web application where users can vote between two options.
-- **Redis (in-memory queue)**: Collects incoming votes and temporarily stores them.
-- **Worker (.NET)**: A .NET 7.0-based service that consumes votes from Redis and persists them into a database.
-- **Postgres (Database)**: Stores votes for long-term persistence.
-- **Result (Node.js)**: A Node.js/Express web application that displays the vote counts in real time.
+- Backend Services:
 
-### Why This Setup?
+Redis – Acts as a temporary cache to store incoming votes
 
-The goal is to introduce you to a variety of languages, tools, and frameworks in one place. This is **not** a perfect production design. Instead, it’s intentionally diverse to help you:
+PostgreSQL – Stores final vote counts permanently
 
-- Work with multiple runtimes and languages (Python, Node.js, .NET).
-- Interact with services like Redis and Postgres.
-- Containerize applications using Docker.
-- Use Docker Compose to orchestrate and manage multiple services together.
+Worker – Background service that transfers data from Redis to PostgreSQL
 
-By dealing with this “messy” environment, you’ll build real-world problem-solving skills. After this project, you should feel more confident tackling more complex deployments and troubleshooting issues in containerized, multi-service setups.
+- Ingress Controller:
 
----
+NGINX Ingress exposes a single endpoint with routing to /vote and /result
 
-## How to Run Each Component
+Ingress Listener on port 80
 
-### Running the Vote Service (Python) Locally (No Docker)
+- 🗂️ Project Structure
+.
+├── vote/           # Voting frontend
+├── result/         # Result display frontend
+├── worker/         # Backend service
+├── k8s/            # Kubernetes manifests for all components
+└── .github/workflows/  # GitHub Actions CI/CD pipeline
 
-1. Ensure you have Python 3.10+ installed.
-2. Navigate to the `vote` directory:
-   ```bash
-   cd vote
-   pip install -r requirements.txt
-   python app.py
-   ```
-   Access the vote interface at [http://localhost:5000](http://localhost:5000).
+- 🚀 Deployment Workflow
+- Infrastructure Setup:
 
-### Running Redis Locally (No Docker)
+EKS cluster is pre-provisioned (can be automated with Terraform if desired)
 
-1. Install Redis on your system ([https://redis.io/docs/getting-started/](https://redis.io/docs/getting-started/)).
-2. Start Redis:
-   ```bash
-   redis-server
-   ```
-   Redis will be available at `localhost:6379`.
+- CI/CD Pipeline:
 
-### Running the Worker (C#/.NET) Locally (No Docker)
+GitHub Actions builds and pushes Docker images to a registry
 
-1. Ensure .NET 7.0 SDK is installed.
-2. Navigate to `worker`:
-   ```bash
-   cd worker
-   dotnet restore
-   dotnet run
-   ```
-   The worker will attempt to connect to Redis and Postgres when available.
+Kubernetes manifests are applied for deployment
 
-### Running Postgres Locally (No Docker)
+- Ingress Routing:
 
-1. Install Postgres from [https://www.postgresql.org/download/](https://www.postgresql.org/download/).
-2. Start Postgres, note the username and password (default `postgres`/`postgres`):
-   ```bash
-   # On many systems, Postgres runs as a service once installed.
-   ```
-   Postgres will be available at `localhost:5432`.
+All external traffic comes through the NGINX Ingress Controller
 
-### Running the Result Service (Node.js) Locally (No Docker)
+- Routes:
 
-1. Ensure Node.js 18+ is installed.
-2. Navigate to `result`:
-   ```bash
-   cd result
-   npm install
-   node server.js
-   ```
-   Access the results interface at [http://localhost:4000](http://localhost:4000).
+/vote → Vote frontend
 
-**Note:** To get the entire system working end-to-end (i.e., votes flowing through Redis, processed by the worker, stored in Postgres, and displayed by the result app), you’ll need to ensure each component is running and that connection strings or environment variables point to the correct services.
+/result → Result frontend
 
----
+- Data Flow:
 
-## Running the Entire Stack in Docker
+User casts a vote → Vote stored temporarily in Redis
 
-### Building and Running Individual Services
+Worker service reads from Redis and writes to PostgreSQL
 
-You can build each service with Docker and run them individually:
+Result Viewer reads from PostgreSQL to display current tally
 
-- **Vote (Python)**:
-  ```bash
-  docker build -t myorg/vote:latest ./vote
-  docker run --name vote -p 8080:80 myorg/vote:latest
-  ```
-  Visit [http://localhost:8080](http://localhost:8080).
+- 🔐 Security Practices
+Only Ingress Controller is publicly exposed via EKS Load Balancer
 
-- **Redis** (official image, no build needed):
-  ```bash
-  docker run --name redis -p 6379:6379 redis:alpine
-  ```
+Communication between services is handled internally within the EKS cluster
 
-- **Worker (.NET)**:
-  ```bash
-  docker build -t myorg/worker:latest ./worker
-  docker run --name worker myorg/worker:latest
-  ```
-  
-- **Postgres**:
-  ```bash
-  docker run --name db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:15-alpine
-  ```
+No hardcoded credentials or sensitive data in the codebase
 
-- **Result (Node.js)**:
-  ```bash
-  docker build -t myorg/result:latest ./result
-  docker run --name result -p 8081:80 myorg/result:latest
-  ```
-  Visit [http://localhost:8081](http://localhost:8081).
+Secrets are managed via Kubernetes Secrets
 
-### Using Docker Compose
+- 🔧 Environment Variables
+Each component uses its own set of variables, examples:
 
-The easiest way to run the entire stack is via Docker Compose. From the project root directory:
+- vote and result frontends:
+REACT_APP_API_BASE=http://<ingress-ip>
 
-```bash
-docker compose up
-```
-
-This will:
-
-- Build and run the vote, worker, and result services.
-- Run Redis and Postgres from their official images.
-- Set up networks, volumes, and environment variables so all services can communicate.
-
-Visit [http://localhost:8080](http://localhost:8080) to vote and [http://localhost:8081](http://localhost:8081) to see results.
-
----
-
-## Notes on Platforms (arm64 vs amd64)
-
-If you’re on an arm64 machine (e.g., Apple Silicon M1/M2) and encounter issues with images or dependencies that assume amd64, you can use Docker `buildx`:
-
-```bash
-docker buildx build --platform linux/amd64 -t myorg/worker:latest ./worker
-```
-
-This ensures the image is built for the desired platform.
-
----
+- worker service:
+REDIS_HOST=redis
+REDIS_PORT=6379
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=secret
