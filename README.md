@@ -67,7 +67,7 @@ Secrets are managed via Kubernetes Secrets
 
 vote and result frontends: REACT_APP_API_BASE=http://<ingress-ip>
 
-- worker service:
+worker service:
 REDIS_HOST=redis,
 REDIS_PORT=6379,
 POSTGRES_HOST=postgres,
