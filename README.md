@@ -63,16 +63,14 @@ No hardcoded credentials or sensitive data in the codebase
 
 Secrets are managed via Kubernetes Secrets
 
-- 🔧 Environment Variables
-Each component uses its own set of variables, examples:
+- 🔧 Environment Variables - Each component uses its own set of variables, examples:
 
-- vote and result frontends:
-REACT_APP_API_BASE=http://<ingress-ip>
+vote and result frontends: REACT_APP_API_BASE=http://<ingress-ip>
 
 - worker service:
-REDIS_HOST=redis
-REDIS_PORT=6379
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_USER=admin
-POSTGRES_PASSWORD=secret
+REDIS_HOST=redis,
+REDIS_PORT=6379,
+POSTGRES_HOST=postgres,
+POSTGRES_PORT=5432,
+POSTGRES_USER=admin,
+POSTGRES_PASSWORD=secret.
