@@ -1,8 +1,8 @@
 This project is a simplified voting application deployed on Amazon EKS (Elastic Kubernetes Service). It includes a voting interface and result viewer, integrated with a backend Redis/PostgreSQL system. Deployment is fully automated using GitHub Actions CI/CD.
 
-![Architecture](EKS-Based-App/image.png)
+![Architecture](./architecture/image.png)
 
-![Architecture](EKS-Based-App/project3.jpeg)
+![Architecture](./architecture/project3.jpeg)
 
 - ⚙️ Architecture Overview
 The app consists of:
@@ -27,18 +27,8 @@ NGINX Ingress exposes a single endpoint with routing to /vote and /result
 
 Ingress Listener on port 80
 
-- 🗂️ Project Structure
-.
-├── vote/           # Voting frontend
-├── result/         # Result display frontend
-├── worker/         # Backend service
-├── k8s/            # Kubernetes manifests for all components
-└── .github/workflows/  # GitHub Actions CI/CD pipeline
-
 - 🚀 Deployment Workflow
-- Infrastructure Setup:
-
-EKS cluster is pre-provisioned (can be automated with Terraform if desired)
+- Infrastructure Setup: EKS cluster is pre-provisioned (can be automated with Terraform if desired)
 
 - CI/CD Pipeline:
 
